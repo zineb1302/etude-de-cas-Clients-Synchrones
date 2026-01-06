@@ -8,6 +8,7 @@
 
 ### 2. Preuve d'Enregistrement
 - Captures d'écran de l'interface Eureka Dashboard montrant l'enregistrement des services
+<img width="1408" height="728" alt="image" src="https://github.com/user-attachments/assets/0499a72f-ffdb-4219-a18b-40600391687b" />
 
 
 ### 3. Résultats de Tests
@@ -22,7 +23,7 @@
 
 ---
 
-## Partie G — Synthèse des Performances
+## Partie 2 — Synthèse des Performances
 
 ### Tableau 1 — Métriques de Performance (latence et débit)
 
@@ -68,7 +69,7 @@
 
 ---
 
-## Partie H — Analyse et Interprétation
+## Partie 3 — Analyse et Interprétation
 
 ### 1. Analyse des Performances sous charge
 
@@ -98,13 +99,6 @@
 
 > En cas de **panne du Vehicle-Service**, **WebClient** gère mieux les erreurs grâce à sa programmation réactive permettant un meilleur contrôle des timeouts et des retries. **RestTemplate** et **Feign** présentent des comportements similaires avec des timeouts standards. Le taux d'échec observé (15-25%) reflète les requêtes en cours lors de la panne avant la détection par le service discovery. En cas de **panne du service discovery**, Eureka offre une meilleure résilience grâce à son cache local permettant de continuer le routage pendant ~30 secondes, tandis que Consul récupère plus rapidement mais avec une dépendance plus forte au serveur. Aucune des approches n'offre de mécanisme de failover automatique pour la panne de l'Api-Gateway lui-même.
 
-### Conclusion et Recommandations
-
-> **RestTemplate** reste une solution simple et appropriée pour des applications avec un faible volume de requêtes simultanées et des besoins de maintenabilité modérés. Son modèle synchrone est facile à comprendre mais limite les performances sous charge.
-
-> **Feign** est recommandé pour la majorité des cas d'usage modernes : il combine simplicité de code, intégration native avec Spring Cloud, et performances comparables à RestTemplate. Son approche déclarative réduit significativement le code boilerplate et améliore la maintenabilité.
-
-> **WebClient** est la solution optimale pour les applications nécessitant un haut débit et une faible latence. Son modèle réactif permet une meilleure utilisation des ressources système et une meilleure scalabilité. Cependant, il nécessite une compréhension de la programmation réactive et présente une courbe d'apprentissage plus élevée.
 
 > **Recommandation finale** : Pour une nouvelle application Spring Cloud, **Feign** représente le meilleur compromis. Pour des applications nécessitant des performances maximales, **WebClient** est à privilégier. **RestTemplate** est déprécié dans Spring 5+ et devrait être évité pour de nouveaux projets.
 
